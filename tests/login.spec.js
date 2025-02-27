@@ -34,14 +34,12 @@ test('Deve acessar a conta do usuário', async ({ page }) => {
   await loginPage.informaCPF(usuario.cpf)
   await loginPage.informaSenha(usuario.senha)
 
-  //temporário
-  await page.waitForTimeout(3000)
+  await page.getByRole('heading', { name: 'Verificação em duas etapas' })
+  .waitFor({ timeout: 3000 })
 
-  const codigo = await obterCodigo2FA()
+  const codigo = await obterCodigo2FA(usuario.cpf)
   await loginPage.informa2FA(codigo)
-  //temporário
-  await page.waitForTimeout(2000)
   
-  expect(await dashPage.obterSaldo()).toHaveText('R$ 5.000,00')
+  await expect(await dashPage.obterSaldo()).toHaveText('R$ 5.000,00')
 
 });
