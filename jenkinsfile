@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('node.js dependencies') {
             steps {
-                sh 'nppm install'
+                sh 'npm install'
             }
         }
         stage('E2E') {
