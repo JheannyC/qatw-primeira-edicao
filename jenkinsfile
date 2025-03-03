@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('node.js dependencies') {
+            steps {
+                sh 'nppm install'
+            }
+        }
+        stage('E2E') {
+            steps {
+                sh 'npx playwright test'
+            }
+        }
+    }
+}
